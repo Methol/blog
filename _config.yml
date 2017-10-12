@@ -119,3 +119,12 @@ neat_js:
   compress:
   exclude:
     - '*.min.js'
+
+archive_generator:
+  per_page: 0
+  yearly: false
+  monthly: false
+  daily: false
+
+tag_generator:
+  per_page: 0
