@@ -1,4 +1,4 @@
-﻿title: "布隆过滤器和Guava的实现"
+title: "布隆过滤器和Guava的实现"
 date: 2017-05-14 18:30:54
 tags: [布隆过滤器, Java, Guava]
 ---
@@ -12,7 +12,7 @@ tags: [布隆过滤器, Java, Guava]
 
 ## 原理
 布隆过滤器的核心实现是一个超大的位数组和几个哈希函数。假设数组的长度为m，哈希函数的个数为k。
-![布隆过滤器原理图][1]
+![布隆过滤器原理图](../upload/布隆过滤器和Guava的实现/布隆过滤器原理图.png)
 如上图：假设集合里面有x,y,z，通过hash函数计算后的结果为a,b,c，那么w[a],w[b],w[c]都会表标记为1。假设现在有3个hash函数，如图3个不同颜色的线，分别计算出不同的结果，并标记为1。当判断某一个元素是否在一个集合的时候，就通过判断这三个hash的结果，如果都是1，说明该元素在这个集合中。如果有一个为0，说明该元素不在此集合中。因此，这也是存在误判的原因。
 总的来说，bloom filter是以极低的的错误去换取空间和时间。
 
@@ -346,7 +346,7 @@ public class SimpleBloomFilter implements BloomFilter<String> {
     }
   };
 ```
-Guava就是选取了这两个hash算法中的一个，创建一个BloomFilter可以指定其中的一个算法，具体的算法逻辑可以参看[解读BloomFilter算法][2]
+Guava就是选取了这两个hash算法中的一个，创建一个BloomFilter可以指定其中的一个算法，具体的算法逻辑可以参看[解读BloomFilter算法](http://www.cyhone.com/2017/02/07/Introduce-to-BloomFilter/)
 使用实例：
 ```java
     private static void bloomFilter() throws Exception {
@@ -393,7 +393,3 @@ Guava就是选取了这两个hash算法中的一个，创建一个BloomFilter可
         distinct.coalesce(1).saveAsTextFile("C:\\Users\\Methol\\Desktop\\distinct");
     }
 ```
-
-
-  [1]: https://static.tuzhihao.com/hs/404fd8fde2464f65933637c9ef259152/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8E%9F%E7%90%86%E5%9B%BE.png
-  [2]: http://www.cyhone.com/2017/02/07/Introduce-to-BloomFilter/

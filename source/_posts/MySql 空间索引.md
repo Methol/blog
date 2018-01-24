@@ -71,11 +71,8 @@ order by distance asc;
 
 
 ```
-![离我最近查询实例][1]
+![离我最近查询实例](../upload/MySql 空间索引/dealer-distance.png)
 
 数据下载:
-[https://static.tuzhihao.com/hs/b3d5024d52e14393a6e3c240a2e2fb64/dealer_insert.zip][2]
+[dealer_insert.zip](../upload/MySql 空间索引/dealer_insert.zip)
 
-
-  [1]: https://static.tuzhihao.com/hs/085901c58dd04911b3e9c9bba87e4030/dealer-distance.png
-  [2]: https://static.tuzhihao.com/hs/b3d5024d52e14393a6e3c240a2e2fb64/dealer_insert.zip
