@@ -1,5 +1,7 @@
 # blog  [![Build Status](https://travis-ci.org/Methol/methol.github.io.svg?branch=write)](https://travis-ci.org/Methol/methol.github.io)
-http://tuzhihao.com
+https://tuzhihao.com
+https://methol.github.io
+
 
 
 
