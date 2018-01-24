@@ -1,6 +1,6 @@
 title: "shadowsocks用户连接数查看脚本"
 date: 2015-09-06 04:10:55
-tags: [ubuntu]
+tags: [shadowsocks]
 ---
 ```shell
 #!/bin/bash

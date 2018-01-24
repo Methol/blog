@@ -74,8 +74,8 @@ order by distance asc;
 ![离我最近查询实例][1]
 
 数据下载:
-[http://static.tuzhihao.com/hs/b3d5024d52e14393a6e3c240a2e2fb64/dealer_insert.zip][2]
+[https://static.tuzhihao.com/hs/b3d5024d52e14393a6e3c240a2e2fb64/dealer_insert.zip][2]
 
 
-  [1]: http://static.tuzhihao.com/hs/085901c58dd04911b3e9c9bba87e4030/dealer-distance.png
-  [2]: http://static.tuzhihao.com/hs/b3d5024d52e14393a6e3c240a2e2fb64/dealer_insert.zip
+  [1]: https://static.tuzhihao.com/hs/085901c58dd04911b3e9c9bba87e4030/dealer-distance.png
+  [2]: https://static.tuzhihao.com/hs/b3d5024d52e14393a6e3c240a2e2fb64/dealer_insert.zip

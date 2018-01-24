@@ -395,5 +395,5 @@ Guava就是选取了这两个hash算法中的一个，创建一个BloomFilter可
 ```
 
 
-  [1]: http://static.tuzhihao.com/hs/404fd8fde2464f65933637c9ef259152/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8E%9F%E7%90%86%E5%9B%BE.png
+  [1]: https://static.tuzhihao.com/hs/404fd8fde2464f65933637c9ef259152/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%8E%9F%E7%90%86%E5%9B%BE.png
   [2]: http://www.cyhone.com/2017/02/07/Introduce-to-BloomFilter/

@@ -45,7 +45,7 @@ public class CountDownLatchService {
     }
 }
 ```
-  
+
 ```
 package countdownlatchtest;
 
@@ -86,7 +86,7 @@ public class Worker implements Runnable {
 }
 
 ```
-  
+
 ```
 package countdownlatchtest;
 
