@@ -25,7 +25,7 @@ script:
 after_script:
   # push生成的静态文件到html分支
   - cd ./public
-  - tar czvf public.tar.gz  .[!.]*
+  - tar czvf public.tar.gz  *
   - git init
   - git config user.name "travis"
   - git config user.email "methol@tuzhihao.com"
