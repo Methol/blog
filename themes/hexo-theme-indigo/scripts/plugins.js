@@ -11,7 +11,11 @@ const source = (path, cache, ext) => {
 }
 function renderImage(src, alt = '', title = '') {
     if(hexo.env.debug === false) {
-        src = hexo.theme.config.cdn_url + src;
+        if(src.indexOf('/upload') > 0){
+            src = hexo.theme.config.cdn_url + src.substring(src.indexOf('/upload'),src.length);
+        } else {
+            src = hexo.theme.config.cdn_url + src;
+        }
     }
     return `<figure class="image-bubble">
                 <div class="img-lightbox">
