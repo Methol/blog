@@ -3,17 +3,16 @@ const { version, name } = require('../package.json')
 hexo.extend.helper.register('theme_version', () => version)
 
 const source = (path, cache, ext) => {
-    if (cache) {
-        const minFile = `${path}${ext === '.js' ? '.min' : ''}${ext}`
-        return hexo.theme.config.cdn ? `//unpkg.com/${name}@latest${minFile}` : `${minFile}?v=${version}`
-    } else {
-        return path + ext
+    if(hexo.env.debug === true){
+        return path + ext;
+    }else {
+        return hexo.theme.config.cdn_url + path + ext;
     }
 }
-hexo.extend.helper.register('theme_js', (path, cache) => source(path, cache, '.js'))
-hexo.extend.helper.register('theme_css', (path, cache) => source(path, cache, '.css'))
-
 function renderImage(src, alt = '', title = '') {
+    if(hexo.env.debug === false) {
+        src = hexo.theme.config.cdn_url + src;
+    }
     return `<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -47,3 +46,7 @@ hexo.extend.filter.register('before_post_render', data => {
     }
     return data
 })
+
+hexo.extend.helper.register('theme_js', (path, cache) => source(path, cache, '.js'))
+hexo.extend.helper.register('theme_css', (path, cache) => source(path, cache, '.css'))
+hexo.extend.helper.register('theme_image', (path, cache) => source(path, cache, ''))
