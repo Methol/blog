@@ -1,3 +1,4 @@
+---
 title: "工具类：自动生成javabean"
 date: 2015-07-15 01:39:26
 tags: [Java, 工具类]

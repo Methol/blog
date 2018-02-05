@@ -1,7 +1,7 @@
 ---
 title: web上传文件夹
 date: 2016-04-11 22:03:58
-tags: [js, 前端]
+tags: [js]
 ---
 使用html5的api来上传文件夹，只有chrome支持。  
 ```html

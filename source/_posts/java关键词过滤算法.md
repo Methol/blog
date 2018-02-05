@@ -1,7 +1,9 @@
+---
 title: "java关键词过滤算法"
 date: 2015-01-06 22:47:00
 tags: [Java]
 ---
+
 ```java
 /**
  * java关键字过滤
@@ -137,5 +139,5 @@ public class KeywordFilter {
   }
 }
 ```
-  
-	   
+
+​	   

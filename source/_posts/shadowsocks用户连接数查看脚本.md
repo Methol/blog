@@ -1,7 +1,9 @@
+---
 title: "shadowsocks用户连接数查看脚本"
 date: 2015-09-06 04:10:55
 tags: [shadowsocks]
 ---
+
 ```shell
 #!/bin/bash
 cd ~
@@ -14,5 +16,5 @@ echo  >>shadowsocks_clients.txt
 echo  >>shadowsocks_clients.txt
 done
 
-vim shadowsocks_clients.txt
+cat shadowsocks_clients.txt
 ```

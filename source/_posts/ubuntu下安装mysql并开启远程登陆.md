@@ -1,7 +1,9 @@
+---
 title: "ubuntu下安装mysql并开启远程登陆"
 date: 2015-03-11 00:47:00
 tags: [ubuntu]
 ---
+
 安装很简单，一行命令。  
 `apt-get install mysql-server`  
 开启远程登陆。<br />
@@ -11,7 +13,7 @@ tags: [ubuntu]
 **bind-address = 127.0.0.1**  
 将bind-address注释掉就可以让别的ip访问。  
 然后登陆到mysql。  
-  
+
 `mysql -uroot -pxxxxxxxx`    
 输入以下命令。  
 ```
@@ -21,8 +23,8 @@ mysql>update user set host = '%' where user = 'root';
 mysql> flush privileges;
 ```
 如果第三命令报错，看是不是root已经有了，primary key的错误，如果是的，可以忽略，执行下面一条命令。  
-  
+
 之后重启mysql就可以了。  
-  
+
 `/etc/init.d/mysql restart`  
 

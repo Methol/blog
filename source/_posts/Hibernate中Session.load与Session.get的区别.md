@@ -1,7 +1,9 @@
+---
 title: "Hibernate中Session.load与Session.get的区别"
 date: 2015-04-22 06:50:00
-tags: [Java web]
+tags: [Java]
 ---
+
 `Session.load()/get()`方法均可以根据指定的实体类和id从数据库读取记录，并返回与之对应的实体对象。
 
 其区别在于：<br />
@@ -14,7 +16,7 @@ load方法可以充分利用内部缓存和二级缓存中的现有数据，而g
 load()主要用于可以肯定数据库中有这一条记录的时候，从数据库中去除这条数据。**
 
 下面两个例子，第一个是通过订单号得到订单这个实体类对象，第二个是通过订单号，从数据库中删除这条数据。
-  
+
 ```java
 //通过订单号得到订单这个实体类对象，不能肯定这个订单是不是在数据库中存在
 public Order getOrder(int orderid) {
@@ -28,9 +30,9 @@ public Order getOrder(int orderid) {
   return order;
 }
 ```
-  
+
 ---
-  
+
 ```java
 	//通过订单号，从数据库中删除这条数据，可以肯定数据库中有这一条数据
 	public int deleteOrder(int orderId) {
