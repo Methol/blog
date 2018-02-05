@@ -4,7 +4,6 @@ date: 2018-02-05 14:10:55
 tags: [idea]
 ---
 
-# IntelliJ IDEA 实用技巧
 
 ## IDEA的一些细节设置
 
