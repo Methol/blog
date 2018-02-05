@@ -4,8 +4,6 @@ date: 2018-02-05 14:10:55
 tags: [idea]
 ---
 
-
-
 # IntelliJ IDEA 实用技巧
 
 ## IDEA的一些细节设置
@@ -46,7 +44,7 @@ tags: [idea]
 
 超级强大的功能，请发挥你的想象力！
 
-<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/live-template.mp4" type="video/mp4"/>
+<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/live-template.mp4" type="video/mp4"></video>
 
 ### Custom Postfix Templates
 
@@ -58,17 +56,17 @@ https://youtrack.jetbrains.com/issue/IDEA-122443#comment=27-2343352
 
 Custom Postfix Templates 和官方自带的Postfix Completion功能是一样的，不过自带的 Postfix Completion没有自定义的功能，不能编写自己的模板。
 
-<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/custom-postfix.mp4" type="video/mp4"/>
+<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/custom-postfix.mp4" type="video/mp4"></video>
 
 ### 自动生成UML图
 
 1. maven依赖关系图，方便排查错误的依赖关系。
 
-   <video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/maven-uml.mp4" type="video/mp4"/>
+   <video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/maven-uml.mp4" type="video/mp4"></video>
 
 2. Java UML类图，阅读代码、了解代码结构、写文档的好工具。
 
-   <video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/class-uml.mp4" type="video/mp4"/>
+   <video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/class-uml.mp4" type="video/mp4"></video>
 
 ### Language Injection
 
@@ -76,7 +74,7 @@ Custom Postfix Templates 和官方自带的Postfix Completion功能是一样的�
 
 编辑双引号中的JSON和正则表达式编辑，不用写双斜线。
 
-<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/Language-Injection.mp4" type="video/mp4"/>
+<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/Language-Injection.mp4" type="video/mp4"></video>
 
 ### Smart Step Into
 
@@ -84,18 +82,18 @@ Custom Postfix Templates 和官方自带的Postfix Completion功能是一样的�
 
 Debug的时候，一行多个方法调用，可以自己选择进入某个方法。
 
-<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/Smart-Step-Into.mp4" type="video/mp4"/>
+<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/Smart-Step-Into.mp4" type="video/mp4"></video>
 
 
 ### DataBase Tool
 
-使用IDEA管理数据库，可以方便的查询，写sql等。  
+使用IDEA管理数据库，可以方便的查询，写sql等。
 
 标记为全局数据库，可以打开任何一个项目都能看到改数据库。
 
 ![](https://i.loli.net/2018/02/04/5a7704de265db.png)
 
-<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/database-tools.mp4" type="video/mp4"/>
+<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/database-tools.mp4" type="video/mp4"></video>
 
 ## 插件篇
 
@@ -105,7 +103,7 @@ https://plugins.jetbrains.com/plugin/8554-ide-features-trainer
 
 新手使用，官方出品的让你快速了解IDEA的强大功能。
 
-<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/IDE-Features-Trainer.mp4" type="video/mp4"/>
+<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/IDE-Features-Trainer.mp4" type="video/mp4"></video>
 
 ### key promoter
 
@@ -115,7 +113,7 @@ https://plugins.jetbrains.com/plugin/4455-key-promoter
 
 ![](https://i.loli.net/2018/02/04/5a76f996314f4.png)
 
-<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/key-promoter.mp4" type="video/mp4"/>
+<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/key-promoter.mp4" type="video/mp4"></video>
 
 ### Alibaba Java Coding Guidelines
 
@@ -123,7 +121,7 @@ https://plugins.jetbrains.com/plugin/4455-key-promoter
 
 根据之前alibaba公开的《Java代码规范》做的插件，检查代码是否符合规约。
 
-<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/alicheck.mp4" type="video/mp4"/>
+<video controls="controls" preload="none" width='100%' height='100%' src="http://static.tuzhihao.com/idea/alicheck.mp4" type="video/mp4"></video>
 
 ### Camel Case
 
@@ -163,7 +161,7 @@ IDE自带的只能大写转小写或者小写转大写。
 
 ![](https://i.loli.net/2018/02/04/5a7706016d595.png)
 
-### Save Action 
+### Save Action
 
 插件地址：https://plugins.jetbrains.com/plugin/7642-save-actions
 
@@ -187,7 +185,7 @@ IDE自带的只能大写转小写或者小写转大写。
 
 将json string 转为Class
 
-## 破解激活
+## 破解
 
 这软件实在太贵了。。。
 
@@ -369,3 +367,4 @@ https://s.tuzhihao.com:666
 https://github.com/judasn/IntelliJ-IDEA-Tutorial
 
 https://www.youtube.com/user/intellijideavideo/featured
+

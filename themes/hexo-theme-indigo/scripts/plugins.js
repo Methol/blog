@@ -3,6 +3,9 @@ const { version, name } = require('../package.json')
 hexo.extend.helper.register('theme_version', () => version)
 
 const source = (path, cache, ext) => {
+    if(path.indexOf("http") === 0){
+        return path + ext;
+    }
     if(hexo.env.debug === true){
         return path + ext;
     }else {
