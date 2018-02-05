@@ -1,7 +1,9 @@
+---
 title: "ss-config"
 date: 2018-01-24 14:10:55
 tags: [shadowsocks]
 ---
+
 ### ss一键脚本
 
 https://teddysun.com/486.html
