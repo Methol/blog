@@ -1,7 +1,7 @@
 ---
 title: "IntelliJ IDEA实用技巧"
 date: 2018-02-05 14:10:55
-tags: [idea]
+tags: [IntelliJ IDEA]
 ---
 
 
