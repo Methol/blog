@@ -8,7 +8,7 @@ tags: [iPhone]
 
 ### 安装tvOS Beta描述文件
 
-使用 iOS 端的 Safari 浏览器点击  **[https://tuzhihao.com/tvos/tvos11.mobileconfig](https://tuzhihao.com/tvos/tvos11.mobileconfig)** 安装，或是使用 PC 下载后邮件发送到 iOS 设备，用自带的 Mail 打开也可安装。安装完成后重启手机，便不会再收到任何的系统更新了。
+使用 iOS 端的 Safari 浏览器点击  **[https://tuzhihao.com/upload/tvos/tvos11.mobileconfig](https://tuzhihao.com/upload/tvos/tvos11.mobileconfig)** 安装，或是使用 PC 下载后邮件发送到 iOS 设备，用自带的 Mail 打开也可安装。安装完成后重启手机，便不会再收到任何的系统更新了。
 
 ## 屏蔽更新的原理
 
