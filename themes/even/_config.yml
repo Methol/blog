@@ -18,8 +18,8 @@ rss: default
 # ===========================================
 menu:
   Home: /
-  Archives: /archives/index.html
-  Tags: /tags/index.html
+  Archives: /archives/
+  Tags: /tags/
   # Categories: /categories
   # About: /about
 
@@ -34,7 +34,7 @@ toc: true
 # jQuery fancybox
 fancybox: true
 
-pjax: true
+pjax: false
 
 copyright:
   enable: false

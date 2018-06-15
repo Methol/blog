@@ -14,7 +14,7 @@ timezone:
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://tuzhihao.com
 root: /
-permalink: :title/index.html
+permalink: :title/
 permalink_defaults:
 
 # Directory
@@ -124,3 +124,11 @@ archive_generator:
 
 tag_generator:
   per_page: 0
+
+deploy:
+  type: cos
+  appId: 1256932465
+  secretId: AKIDEMJk6Jv1Z1Tkq4j9yd7PWvDZs11qom8L
+  secretKey: AE7nx1vdDcswqdFi8OSL4bx76uaBcQ5Z
+  bucket: blog-1256932465
+  region: ap-beijing

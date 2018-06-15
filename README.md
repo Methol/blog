@@ -9,5 +9,5 @@ npm install hexo-renderer-scss --save
 
 ```
 npm install ali-oss --save
-node deploy.js
+node aliyun-deploy.js
 ```
