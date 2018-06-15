@@ -80,7 +80,7 @@ baidu_analytics:
 baidu_verification:
 
 # Google Analytics
-google_analytics: true
+google_analytics: UA-62589762-1
 # Google Verification
 google_verification: UA-62589762-1
 
