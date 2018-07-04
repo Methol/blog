@@ -12,10 +12,6 @@ pipelines:
           - node
         script: 
           - npm install hexo-cli -g
-    - step:
-        caches:
-          - node
-        script: 
           - hexo clean
           - hexo generate
           - hexo deploy
