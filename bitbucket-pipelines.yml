@@ -12,6 +12,7 @@ pipelines:
           - node
         script: 
           - npm install hexo-cli -g
+          - npm install hexo --save
           - hexo clean
           - hexo generate
           - hexo deploy
