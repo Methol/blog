@@ -2,7 +2,7 @@ language: node_js
 node_js: stable
 branches:
   only:
-  - write
+  - w
 env:
   global:
     - GH_REF: github.com/methol/methol.github.io.git  # 设置GH_REF，注意更改yourname
