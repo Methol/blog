@@ -20,32 +20,38 @@ menu:
   Home: /
   Archives: /archives/
   Tags: /tags/
-  # Categories: /categories
-  # About: /about
+  # Categories: /categories/
+  # About: /about/
 
 # ===========================================
 # Theme Settings
 # ===========================================
-# color: Default | Mint Green | Cobalt Blue | Hot Pink | Dark Violet
-color: Default
+# color: default | mint green | cobalt blue | hot pink | dark violet
+color: default
+
+# default page mode: default | archives
+mode: default
 
 toc: true
 
 # jQuery fancybox
 fancybox: true
 
-pjax: false
+pjax: true
+
+# LaTeX support (via MathJax)
+latex: false
 
 copyright:
-  enable: false
+  enable: true
   # https://creativecommons.org/
   license: '<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>'
 
 reward:
   enable: false
   qrCode:
-    wechat: /upload/wechat.png
-    alipay: /upload/alipay.png
+    wechat:
+    alipay:
 
 # ===========================================
 # Social links Settings
@@ -80,12 +86,12 @@ baidu_analytics:
 baidu_verification:
 
 # Google Analytics
-google_analytics: UA-62589762-1
+google_analytics: true
 # Google Verification
 google_verification: UA-62589762-1
 
 # Disqus
-disqus_shortname: methol
+disqus_shortname:
 
 #Changyan
 changyan:
@@ -98,4 +104,4 @@ livere_datauid:
 # ===========================================
 # Version
 # ===========================================
-version: 2.9.0
+version: 2.11.0
