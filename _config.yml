@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: even
+theme: next
 
 # hexo-generator-feed  rss
 feed:
@@ -124,3 +124,9 @@ archive_generator:
 
 tag_generator:
   per_page: 0
+
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
