@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"tuzhihao.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="聚类分析算法的一个java代码，我的项目中应用了这个代码。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k-means聚类算法">
+<meta property="og:url" content="https://tuzhihao.com/k-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Methol">
+<meta property="og:description" content="聚类分析算法的一个java代码，我的项目中应用了这个代码。 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899">
+<meta property="og:locale">
+<meta property="article:published_time" content="2015-05-10T08:29:53.000Z">
+<meta property="article:modified_time" content="2021-04-18T13:52:33.064Z">
+<meta property="article:author" content="Methol">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://tuzhihao.com/k-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>k-means聚类算法 | Methol</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Methol</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Methol's blog</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://tuzhihao.com/k-means%E8%81%9A%E7%B1%BB%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Methol">
+      <meta itemprop="description" content="涂志昊个人blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Methol">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          k-means聚类算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2015-05-10 08:29:53" itemprop="dateCreated datePublished" datetime="2015-05-10T08:29:53+00:00">2015-05-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-04-18 13:52:33" itemprop="dateModified" datetime="2021-04-18T13:52:33+00:00">2021-04-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>聚类分析算法的一个java代码，我的项目中应用了这个代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.methol.util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.FileReader;</span><br><span class="line"><span class="keyword">import</span> java.io.FileWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="comment">//K-means算法实现</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">KMeans</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 聚类的数目</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> ClassCount = <span class="number">4</span>;</span><br><span class="line">    <span class="comment">// 样本数目（测试集）</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> InstanceNumber = <span class="number">100</span>;</span><br><span class="line">    <span class="comment">// 样本属性数目（测试）</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> FieldCount = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置异常点阈值参数（每一类初始的最小数目为InstanceNumber/ClassCount^t）</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">double</span> t = <span class="number">2.0</span>;</span><br><span class="line">    <span class="comment">// 存放数据的矩阵</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span>[][] data;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每个类的均值中心</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span>[][] classData;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 噪声集合索引</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ArrayList&lt;Integer&gt; noises;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 存放每次变换结果的矩阵</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//存放每个属性的最大值</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">double</span>[] classmax = <span class="keyword">new</span> <span class="keyword">double</span>[FieldCount];</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数，初始化</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">KMeans</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 最后一位用来储存结果</span></span><br><span class="line">        data = <span class="keyword">new</span> <span class="keyword">double</span>[InstanceNumber][FieldCount + <span class="number">1</span>];</span><br><span class="line">        classData = <span class="keyword">new</span> <span class="keyword">double</span>[ClassCount][FieldCount];</span><br><span class="line">        result = <span class="keyword">new</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt;(ClassCount);</span><br><span class="line">        noises = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主函数入口 测试集的文件名称为“测试集.data”,其中有1000*57大小的数据 每一行为一个样本，有57个属性 主要分为两个步骤 1.读取数据</span></span><br><span class="line"><span class="comment">     * 2.进行聚类 最后统计运行时间和消耗的内存</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">        <span class="keyword">long</span> startTime = System.currentTimeMillis();</span><br><span class="line">        KMeans cluster = <span class="keyword">new</span> KMeans();</span><br><span class="line">        cluster.InstanceNumber = <span class="number">100</span>;</span><br><span class="line">        <span class="comment">// 读取数据</span></span><br><span class="line">        <span class="comment">//cluster.readData(&quot;D:/test.txt&quot;);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//随机产生数据</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; InstanceNumber; i++) &#123;</span><br><span class="line">            data[i][<span class="number">0</span>] = (<span class="keyword">double</span>) Math.random();</span><br><span class="line">            data[i][<span class="number">0</span>] = data[i][<span class="number">0</span>] * <span class="number">100</span>;</span><br><span class="line">            System.out.println(data[i][<span class="number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 聚类过程</span></span><br><span class="line">        cluster.cluster();</span><br><span class="line">        <span class="comment">// 输出结果</span></span><br><span class="line">        cluster.printResult(<span class="string">&quot;clusterResult.data&quot;</span>);</span><br><span class="line">        <span class="keyword">long</span> endTime = System.currentTimeMillis();</span><br><span class="line">        System.out.println(<span class="string">&quot;Total Time:&quot;</span> + (endTime - startTime) + <span class="string">&quot;ms&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;Memory Consuming:&quot;</span></span><br><span class="line">                + (<span class="keyword">double</span>) (Runtime.getRuntime().totalMemory() - Runtime</span><br><span class="line">                .getRuntime().freeMemory()) / <span class="number">1000000</span> + <span class="string">&quot;MB&quot;</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;聚类中心：&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ClassCount; i++) &#123;</span><br><span class="line">            System.out.println(classData[i][<span class="number">0</span>] * classmax[<span class="number">0</span>]);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//data[i][0] = (double) (Math.random()*100);</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (ArrayList&lt;Integer&gt; i : result) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Integer integer : i) &#123;</span><br><span class="line">                System.out.print(integer + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;数目:&quot;</span> + i.size());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (ArrayList&lt;Integer&gt; i : result) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Integer integer : i) &#123;</span><br><span class="line">                System.out.print(data[integer][<span class="number">0</span>] + <span class="string">&quot;\t&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">&quot;数目:&quot;</span> + i.size());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;noises:&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (Integer noise : noises) &#123;</span><br><span class="line">            System.out.println(noise);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 读取测试集的数据</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> trainingFileName 测试集文件名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">readData</span><span class="params">(String trainingFileName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            FileReader fr = <span class="keyword">new</span> FileReader(trainingFileName);</span><br><span class="line">            BufferedReader br = <span class="keyword">new</span> BufferedReader(fr);</span><br><span class="line">            <span class="comment">// 存放数据的临时变量</span></span><br><span class="line">            String lineData = <span class="keyword">null</span>;</span><br><span class="line">            String[] splitData = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">int</span> line = <span class="number">0</span>;</span><br><span class="line">            <span class="comment">// 按行读取</span></span><br><span class="line">            <span class="keyword">while</span> (br.ready()) &#123;</span><br><span class="line">                <span class="comment">// 得到原始的字符串</span></span><br><span class="line">                lineData = br.readLine();</span><br><span class="line">                splitData = lineData.split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">                <span class="comment">// 转化为数据</span></span><br><span class="line">                <span class="comment">// System.out.println(&quot;length:&quot;+splitData.length);</span></span><br><span class="line">                <span class="keyword">if</span> (splitData.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; splitData.length; i++) &#123;</span><br><span class="line">                        <span class="comment">// System.out.println(splitData[i]);</span></span><br><span class="line">                        <span class="comment">// System.out.println(splitData[i].getClass());</span></span><br><span class="line">                        <span class="keyword">if</span> (splitData[i].startsWith(<span class="string">&quot;Iris-setosa&quot;</span>)) &#123;</span><br><span class="line">                            data[line][i] = (<span class="keyword">double</span>) <span class="number">1.0</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (splitData[i].startsWith(<span class="string">&quot;Iris-versicolor&quot;</span>)) &#123;</span><br><span class="line">                            data[line][i] = (<span class="keyword">double</span>) <span class="number">2.0</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (splitData[i].startsWith(<span class="string">&quot;Iris-virginica&quot;</span>)) &#123;</span><br><span class="line">                            data[line][i] = (<span class="keyword">double</span>) <span class="number">3.0</span>;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123; <span class="comment">// 将数据截取之后放进数组</span></span><br><span class="line">                            data[line][i] = Double.parseDouble(splitData[i]);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    line++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(line);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 聚类过程，主要分为两步 1.循环找初始点 2.不断调整直到分类不再发生变化</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cluster</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 数据标准化处理</span></span><br><span class="line">        normalize();</span><br><span class="line">        <span class="comment">// 标记是否需要重新找初始点</span></span><br><span class="line">        <span class="keyword">boolean</span> needUpdataInitials = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找初始点的迭代次数</span></span><br><span class="line">        <span class="keyword">int</span> times = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 找初始点</span></span><br><span class="line">        <span class="keyword">while</span> (needUpdataInitials) &#123;</span><br><span class="line">            needUpdataInitials = <span class="keyword">false</span>;</span><br><span class="line">            result.clear();</span><br><span class="line">            <span class="comment">//System.out.println(&quot;Find Initials Iteration&quot; + (times++) + &quot;time(s)&quot;);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 一次找初始点的尝试和根据初始点的分类</span></span><br><span class="line">            findInitials();</span><br><span class="line">            firstClassify();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果某个分类的数目小于特定的阈值，则认为这个分类中的所有样本都是噪声点</span></span><br><span class="line">            <span class="comment">// 需要重新找初始点</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; result.size(); i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (result.get(i).size() &lt; InstanceNumber</span><br><span class="line">                        / Math.pow(ClassCount, t)) &#123;</span><br><span class="line">                    needUpdataInitials = <span class="keyword">true</span>;</span><br><span class="line">                    noises.addAll(result.get(i));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到合适的初始点后</span></span><br><span class="line">        <span class="comment">// 不断的调整均值中心和分类，直到不再发生任何变化</span></span><br><span class="line">        Adjust();</span><br><span class="line"></span><br><span class="line"><span class="comment">//        //把结果存入数组answer中</span></span><br><span class="line"><span class="comment">//        for (int i = 0; i &lt; ClassCount; i++) &#123;</span></span><br><span class="line"><span class="comment">//            KMeans.answer[i] = classData[i][0];</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对数据进行归一化 1.找每一个属性的最大值 2.对某个样本的每个属性除以其最大值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">normalize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 找最大值</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; InstanceNumber; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; FieldCount; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (data[i][j] &gt; classmax[j])</span><br><span class="line">                    classmax[j] = data[i][j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 归一化</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; InstanceNumber; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; FieldCount; j++) &#123;</span><br><span class="line">                data[i][j] = data[i][j] / classmax[j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 关于初始向量的一次找寻尝试</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findInitials</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// a,b为标志距离最远的两个向量的索引</span></span><br><span class="line">        <span class="keyword">int</span> i, j, a, b;</span><br><span class="line">        i = j = a = b = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 最远距离</span></span><br><span class="line">        <span class="keyword">double</span> maxDis = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 已经找到的初始点个数</span></span><br><span class="line">        <span class="keyword">int</span> alreadyCls = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 存放已经标记为初始点的向量索引</span></span><br><span class="line">        ArrayList&lt;Integer&gt; initials = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从两个开始</span></span><br><span class="line">        <span class="keyword">for</span> (; i &lt; InstanceNumber; i++) &#123;</span><br><span class="line">            <span class="comment">// 噪声点</span></span><br><span class="line">            <span class="keyword">if</span> (noises.contains(i))</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            <span class="comment">// long startTime = System.currentTimeMillis();</span></span><br><span class="line">            j = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (; j &lt; InstanceNumber; j++) &#123;</span><br><span class="line">                <span class="comment">// 噪声点</span></span><br><span class="line">                <span class="keyword">if</span> (noises.contains(j))</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="comment">// 找出最大的距离并记录下来</span></span><br><span class="line">                <span class="keyword">double</span> newDis = calDis(data[i], data[j]);</span><br><span class="line">                <span class="keyword">if</span> (maxDis &lt; newDis) &#123;</span><br><span class="line">                    a = i;</span><br><span class="line">                    b = j;</span><br><span class="line">                    maxDis = newDis;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// long endTime = System.currentTimeMillis();</span></span><br><span class="line">            <span class="comment">// System.out.println(i +</span></span><br><span class="line">            <span class="comment">// &quot;Vector Caculation Time:&quot;+(endTime-startTime)+&quot;ms&quot;);</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将前两个初始点记录下来</span></span><br><span class="line">        initials.add(a);</span><br><span class="line">        initials.add(b);</span><br><span class="line">        classData[<span class="number">0</span>] = data[a];</span><br><span class="line">        classData[<span class="number">1</span>] = data[b];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 在结果中新建存放某样本索引的对象，并把初始点添加进去</span></span><br><span class="line">        ArrayList&lt;Integer&gt; resultOne = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        ArrayList&lt;Integer&gt; resultTwo = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">        resultOne.add(a);</span><br><span class="line">        resultTwo.add(b);</span><br><span class="line">        result.add(resultOne);</span><br><span class="line">        result.add(resultTwo);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到剩余的几个初始点</span></span><br><span class="line">        <span class="keyword">while</span> (alreadyCls &lt; ClassCount) &#123;</span><br><span class="line">            i = j = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">double</span> maxMin = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> newClass = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 找最小值中的最大值</span></span><br><span class="line">            <span class="keyword">for</span> (; i &lt; InstanceNumber; i++) &#123;</span><br><span class="line">                <span class="keyword">double</span> min = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">double</span> newMin = <span class="number">0</span>;</span><br><span class="line">                <span class="comment">// 找和已有类的最小值</span></span><br><span class="line">                <span class="keyword">if</span> (initials.contains(i))</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="comment">// 噪声点去除</span></span><br><span class="line">                <span class="keyword">if</span> (noises.contains(i))</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; alreadyCls; j++) &#123;</span><br><span class="line">                    newMin = calDis(data[i], classData[j]);</span><br><span class="line">                    <span class="keyword">if</span> (min == <span class="number">0</span> || newMin &lt; min)</span><br><span class="line">                        min = newMin;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 新最小距离较大</span></span><br><span class="line">                <span class="keyword">if</span> (min &gt; maxMin) &#123;</span><br><span class="line">                    maxMin = min;</span><br><span class="line">                    newClass = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 添加到均值集合和结果集合中</span></span><br><span class="line">            <span class="comment">// System.out.println(&quot;NewClass&quot;+newClass);</span></span><br><span class="line">            initials.add(newClass);</span><br><span class="line">            <span class="comment">//System.err.println(&quot;newClass:&quot;+newClass);</span></span><br><span class="line">            <span class="comment">//System.err.println(&quot;alreadyCls:&quot;+alreadyCls);</span></span><br><span class="line">            classData[alreadyCls++] = data[newClass];</span><br><span class="line">            ArrayList&lt;Integer&gt; rslt = <span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">            rslt.add(newClass);</span><br><span class="line">            result.add(rslt);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一次分类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">firstClassify</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 根据初始向量分类</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; InstanceNumber; i++) &#123;</span><br><span class="line">            <span class="keyword">double</span> min = <span class="number">0f</span>;</span><br><span class="line">            <span class="keyword">int</span> clsId = -<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; classData.length; j++) &#123;</span><br><span class="line">                <span class="comment">// 欧式距离</span></span><br><span class="line">                <span class="keyword">double</span> newMin = calDis(classData[j], data[i]);</span><br><span class="line">                <span class="keyword">if</span> (clsId == -<span class="number">1</span> || newMin &lt; min) &#123;</span><br><span class="line">                    clsId = j;</span><br><span class="line">                    min = newMin;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 本身不再添加</span></span><br><span class="line">            <span class="keyword">if</span> (!result.get(clsId).contains(i))</span><br><span class="line">                result.get(clsId).add(i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 迭代分类，直到各个类的数据不再变化</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Adjust</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 记录是否发生变化</span></span><br><span class="line">        <span class="keyword">boolean</span> change = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 循环的次数</span></span><br><span class="line">        <span class="keyword">int</span> times = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (change) &#123;</span><br><span class="line">            <span class="comment">// 复位</span></span><br><span class="line">            change = <span class="keyword">false</span>;</span><br><span class="line">            <span class="comment">//System.out.println(&quot;Adjust Iteration&quot; + (times++) + &quot;time(s)&quot;);</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 重新计算每个类的均值</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ClassCount; i++) &#123;</span><br><span class="line">                <span class="comment">// 原有的数据</span></span><br><span class="line">                ArrayList&lt;Integer&gt; cls = result.get(i);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 新的均值</span></span><br><span class="line">                <span class="keyword">double</span>[] newMean = <span class="keyword">new</span> <span class="keyword">double</span>[FieldCount];</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 计算均值</span></span><br><span class="line">                <span class="keyword">for</span> (Integer index : cls) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; FieldCount; j++)</span><br><span class="line">                        newMean[j] += data[index][j];</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; FieldCount; j++)</span><br><span class="line">                    newMean[j] /= cls.size();</span><br><span class="line">                <span class="keyword">if</span> (!compareMean(newMean, classData[i])) &#123;</span><br><span class="line">                    classData[i] = newMean;</span><br><span class="line">                    change = <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 清空之前的数据</span></span><br><span class="line">            <span class="keyword">for</span> (ArrayList&lt;Integer&gt; cls : result)</span><br><span class="line">                cls.clear();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 重新分配</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; InstanceNumber; i++) &#123;</span><br><span class="line">                <span class="keyword">double</span> min = <span class="number">0f</span>;</span><br><span class="line">                <span class="keyword">int</span> clsId = -<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; classData.length; j++) &#123;</span><br><span class="line">                    <span class="keyword">double</span> newMin = calDis(classData[j], data[i]);</span><br><span class="line">                    <span class="keyword">if</span> (clsId == -<span class="number">1</span> || newMin &lt; min) &#123;</span><br><span class="line">                        clsId = j;</span><br><span class="line">                        min = newMin;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                data[i][FieldCount] = clsId;</span><br><span class="line">                result.get(clsId).add(i);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 测试聚类效果(训练集)</span></span><br><span class="line">            <span class="comment">// for(int i = 0;i &lt; ClassCount;i++)&#123;</span></span><br><span class="line">            <span class="comment">// int positives = 0;</span></span><br><span class="line">            <span class="comment">// int negatives = 0;</span></span><br><span class="line">            <span class="comment">// ArrayList&lt;Integer&gt; cls = result.get(i);</span></span><br><span class="line">            <span class="comment">// for(Integer instance:cls)</span></span><br><span class="line">            <span class="comment">// if (data[instance][FieldCount - 1] == 1f)</span></span><br><span class="line">            <span class="comment">// positives ++;</span></span><br><span class="line">            <span class="comment">// else</span></span><br><span class="line">            <span class="comment">// negatives ++;</span></span><br><span class="line">            <span class="comment">// System.out.println(&quot; &quot; + i + &quot; Positive: &quot; + positives +</span></span><br><span class="line">            <span class="comment">// &quot; Negatives: &quot; + negatives);</span></span><br><span class="line">            <span class="comment">// &#125;</span></span><br><span class="line">            <span class="comment">// System.out.println();</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 计算a样本和b样本的欧式距离作为不相似度</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> aVector 样本a</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> bVector 样本b</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 欧式距离长度</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">double</span> <span class="title">calDis</span><span class="params">(<span class="keyword">double</span>[] aVector, <span class="keyword">double</span>[] bVector)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">double</span> dis = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">/* 最后一个数据在训练集中为结果，所以不考虑 */</span></span><br><span class="line">        <span class="keyword">for</span> (; i &lt; aVector.length; i++)</span><br><span class="line">            dis += Math.pow(bVector[i] - aVector[i], <span class="number">2</span>);</span><br><span class="line">        dis = Math.pow(dis, <span class="number">0.5</span>);</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">double</span>) dis;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断两个均值向量是否相等</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> a 向量a</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> b 向量b</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 相等返回true</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">compareMean</span><span class="params">(<span class="keyword">double</span>[] a, <span class="keyword">double</span>[] b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (a.length != b.length)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (a[i] &gt; <span class="number">0</span> &amp;&amp; b[i] &gt; <span class="number">0</span> &amp;&amp; a[i] != b[i]) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将结果输出到一个文件中</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fileName 文件名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printResult</span><span class="params">(String fileName)</span> </span>&#123;</span><br><span class="line">        FileWriter fw = <span class="keyword">null</span>;</span><br><span class="line">        BufferedWriter bw = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fw = <span class="keyword">new</span> FileWriter(fileName);</span><br><span class="line">            bw = <span class="keyword">new</span> BufferedWriter(fw);</span><br><span class="line">            <span class="comment">// 写入文件</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; InstanceNumber; i++) &#123;</span><br><span class="line">                bw.write(String.valueOf(data[i][FieldCount]).substring(<span class="number">0</span>, <span class="number">1</span>));</span><br><span class="line">                bw.newLine();</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 统计每类的数目，打印到控制台</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; ClassCount; i++) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;第&quot;</span> + (i + <span class="number">1</span>) + <span class="string">&quot;类数目: &quot;</span></span><br><span class="line">                        + result.get(i).size());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 关闭资源</span></span><br><span class="line">            <span class="keyword">if</span> (bw != <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    bw.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">if</span> (fw != <span class="keyword">null</span>)</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    fw.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E5%AE%89%E8%A3%85pure-ftp%E6%9C%8D%E5%8A%A1%E4%BB%A5%E5%8F%8A%E8%AE%BE%E7%BD%AE%E8%99%9A%E6%8B%9F%E7%94%A8%E6%88%B7/" rel="prev" title="安装pure-ftp服务以及设置虚拟用户">
+      <i class="fa fa-chevron-left"></i> 安装pure-ftp服务以及设置虚拟用户
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/java%20socket%20%E4%BC%A0%E9%80%81%E6%96%87%E4%BB%B6/" rel="next" title="java socket 传送文件">
+      java socket 传送文件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Methol</p>
+  <div class="site-description" itemprop="description">涂志昊个人blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Methol</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
