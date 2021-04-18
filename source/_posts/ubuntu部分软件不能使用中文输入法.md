@@ -19,11 +19,12 @@ XMODIFIERS="@im=fcitx"
 export XMODIFIERS
 ```
 如图：  
-![IDEA脚本示例](../upload/ubuntu部分软件不能使用中文输入法/ubuntu部分软件不能使用中文输入法1.png)  
+![IDEA脚本示例](https://cdn.jsdelivr.net/gh/methol/pic@main/upic/20210418/214922-q6TJTM.png)  
 
 
 Wine QQ的启动脚本是`/opt/longene/qq/qq.sh`  
 如图：  
-![Wine QQ 脚本示例](../upload/ubuntu部分软件不能使用中文输入法/ubuntu部分软件不能使用中文输入法1.png)  
+![Wine QQ 脚本示例](https://cdn.jsdelivr.net/gh/methol/pic@main/upic/20210418/214922-q6TJTM.png)  
 
   
+

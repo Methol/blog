@@ -72,7 +72,7 @@ order by distance asc;
 
 
 ```
-![离我最近查询实例](../upload/MySql 空间索引/dealer-distance.png)
+![离我最近查询实例](https://cdn.jsdelivr.net/gh/methol/pic@main/upic/20210418/214849-WBvCWV.png)
 
 数据下载:
 [dealer_insert.zip](../upload/MySql 空间索引/dealer_insert.zip)

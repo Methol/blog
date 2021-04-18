@@ -77,4 +77,4 @@ DELIMITER ;
 ```
 
 执行效果如下：
-![查询结果](../upload/MySQL全库模糊搜索关键词/mysql全库模糊搜索关键词1.png)
+![查询结果](https://cdn.jsdelivr.net/gh/methol/pic@main/upic/20210418/214903-OHpTem.png)
